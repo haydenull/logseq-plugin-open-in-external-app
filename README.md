@@ -1,19 +1,46 @@
-# logseq-plugin-react-boilerplate
-> logseq-plugin-react-boilerplate with vite react typescript tailwindcss
+# logseq-plugin-open-in-external-app
+> use external app to open logseq file
 
-[![latest release version](https://img.shields.io/github/v/release/haydenull/logseq-plugin-react-boilerplate)](https://github.com/haydenull/logseq-plugin-react-boilerplate/releases)
-[![License](https://img.shields.io/github/license/haydenull/logseq-plugin-react-boilerplate?color=blue)](https://github.com/haydenull/logseq-plugin-react-boilerplate/blob/main/LICENSE)
+[![latest release version](https://img.shields.io/github/v/release/haydenull/logseq-plugin-open-in-external-app)](https://github.com/haydenull/logseq-plugin-open-in-external-app/releases)
+[![License](https://img.shields.io/github/license/haydenull/logseq-plugin-open-in-external-app?color=blue)](https://github.com/haydenull/logseq-plugin-open-in-external-app/blob/main/LICENSE)
+
+Inspired by [vscode plugin open-in-external-app](https://marketplace.visualstudio.com/items?itemName=YuTengjing.open-in-external-app)
+
+English | [简体中文](./README-zh_CN.md)
 
 ## Demo
 ![demo](./demo.gif)
 
-## Usage
-1. Use this template create your own plugin
-2. change `package.json` to your own plugin name
-3. change LICENSE to your own license
-4. use `yarn dev` to run your plugin in browser
-5. use `yarn build` to build your plugin and load it in logseq
+Demo use [vscode](https://code.visualstudio.com/) and [Excalidraw Schema Editor](https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor) plugin.
 
-## Release
-1. push to `main` branch
-2. github ci will auto create a new release
+## Usage
+1. Install plugin
+2. Fill in configuration information
+3. Restart Logseq to take effect
+
+## Plugin Configuration
+menus: Registered menus
+  - menuName: Menu name
+  - pathRegExp: Get file path from block content regexp
+  - extensionName: Open file extension name
+  - apps:
+    - title: App name
+    - openSchema: Call app schema, `{path}` will be replaced by file path
+
+## Configuration Example
+```json
+{
+  "menus": [
+    {
+      "menuName": "Excalidraw",
+      "pathRegExp": "\\[\\[([\\d\\D]+)]]",
+      "extensionName": "excalidraw",
+      "apps": [
+        {
+          "title": "vscode",
+          "openSchema": "vscode://file/{path}"
+        }
+      ]
+    }
+  ]
+}

@@ -4,8 +4,8 @@ import '@logseq/libs'
 // import App from './App'
 // import './index.css'
 
-type ICommand = {
-  commandName: string
+type IMenu = {
+  menuName: string
   pathRegExp: string
   extensionName: string
   apps: {
@@ -19,7 +19,7 @@ const isDevelopment = import.meta.env.DEV
 if (isDevelopment) {
   // renderApp('browser')
 } else {
-  console.log('=== logseq-plugin-react-boilerplate loaded ===')
+  console.log('=== logseq-plugin-open-in-external-app loaded ===')
   logseq.ready(() => {
 
     // logseq.provideModel({
@@ -28,9 +28,9 @@ if (isDevelopment) {
     //     logseq.showMainUI()
     //   },
     // })
-    const commands: ICommand[] = logseq.settings?.commands || []
+    const commands: IMenu[] = logseq.settings?.menus || []
     commands.forEach(command => {
-      logseq.Editor.registerBlockContextMenuItem(`Open in External App: ${command.commandName}`, async e => {
+      logseq.Editor.registerBlockContextMenuItem(`Open in External App: ${command.menuName}`, async e => {
         const block = await logseq.Editor.getBlock(e.uuid)
         const fileRes = new RegExp(command.pathRegExp).exec(block?.content || '')
         if (!fileRes) return logseq.App.showMsg(`Can't find file path in block:\n${block?.content}`, 'error')
